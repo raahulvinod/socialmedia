@@ -9,9 +9,10 @@ import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { errorHandler, notFound } from './middlewares/errorHandler.js';
 import dbConnect from './config/dbConnect.js';
 import { register } from './controllers/auth.controller.js';
+import authRouter from './routes/authRoute.js';
+import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
 //  Configurations
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,8 @@ const upload = multer({ storage });
 
 // Routes
 app.post('/auth/register', upload.single('picture'), register);
+
+app.use('/auth', authRouter);
 
 app.use(notFound);
 app.use(errorHandler);
