@@ -6,16 +6,23 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import path, { dirname } from 'path';
+import path from 'path';
 import { fileURLToPath } from 'url';
-import { error } from 'console';
+
+import { errorHandler, notFound } from './middlewares/errorHandler.js';
+import dbConnect from './config/dbConnect.js';
+import { register } from './controllers/auth.controller.js';
 
 //  Configurations
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
+dbConnect();
 
 const app = express();
+const PORT = process.env.PORT || 8000;
+
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
@@ -36,11 +43,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const PORT = process.env.PORT || 8000;
+// Routes
+app.post('/auth/register', upload.single('picture'), register);
 
-mongooe
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server connected with port: ${PORT}`));
-  })
-  .catch((error) => console.log(`${error} did not connect.`));
+app.use(notFound);
+app.use(errorHandler);
+
+app.listen(PORT, () => {
+  console.log(`Server is running at PORT ${PORT}`);
+});
