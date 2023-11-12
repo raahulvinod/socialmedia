@@ -29,8 +29,8 @@ export const getUserFriends = asyncHandler(async (req, res) => {
   );
 
   const formattedFriends = friends.map(
-    ({ _id, firstName, lastName, occupataion, location, picturePath }) => {
-      return { _id, firstName, lastName, occupataion, location, picturePath };
+    ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+      return { _id, firstName, lastName, occupation, location, picturePath };
     }
   );
 
@@ -70,8 +70,8 @@ export const addRemoveFriend = asyncHandler(async (req, res) => {
   );
 
   const formattedFriends = friends.map(
-    ({ _id, firstName, lastName, occupataion, location, picturePath }) => {
-      return { _id, firstName, lastName, occupataion, location, picturePath };
+    ({ _id, firstName, lastName, occupation, location, picturePath }) => {
+      return { _id, firstName, lastName, occupation, location, picturePath };
     }
   );
 
