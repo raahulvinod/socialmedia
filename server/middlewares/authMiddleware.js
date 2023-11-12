@@ -6,8 +6,7 @@ export const veryfyToken = asyncHandler(async (req, res, next) => {
     let token = req.header('Authorization');
 
     if (!token) {
-      res.status(403);
-      throw new Error('Access Denied, Not Authorized');
+      res.status(403).send('Access Denied, Not Authorized');
     }
 
     if (token.startsWith('Bearer ')) {
@@ -19,7 +18,6 @@ export const veryfyToken = asyncHandler(async (req, res, next) => {
     req.user = verified;
     next();
   } catch (error) {
-    res.status(403);
-    throw new Error('Access Denied, Token Failed');
+    throw new Error(error);
   }
 });
