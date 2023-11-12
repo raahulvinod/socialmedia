@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import dbConnect from './config/dbConnect.js';
 import { register } from './controllers/auth.controller.js';
 import authRouter from './routes/authRoute.js';
+import userRouter from './routes/userRoute.js';
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
 //  Configurations
@@ -45,9 +46,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Routes
-app.post('/auth/register', upload.single('picture'), register);
+app.post('/api/auth/register', upload.single('picture'), register);
 
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
