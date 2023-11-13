@@ -13,7 +13,10 @@ import dbConnect from './config/dbConnect.js';
 import { register } from './controllers/auth.controller.js';
 import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
+import postRouter from './routes/postRoute.js';
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
+import { verifyToken } from './middlewares/authMiddleware.js';
+import { createPost } from './controllers/post.controller.js';
 
 //  Configurations
 const __filename = fileURLToPath(import.meta.url);
@@ -45,11 +48,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Routes
+// Routes with files
 app.post('/api/auth/register', upload.single('picture'), register);
+app.post('/api/posts', verifyToken, upload.single('picture'), createPost);
 
+// Routes
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/posts', postRouter);
 
 app.use(notFound);
 app.use(errorHandler);
