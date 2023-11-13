@@ -22,11 +22,7 @@ export const getUserFriends = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  const friends = await Promise.all(
-    user.friends.map((id) => {
-      User.findById(id);
-    })
-  );
+  const friends = await User.find({ _id: { $in: user.friends } });
 
   const formattedFriends = friends.map(
     ({ _id, firstName, lastName, occupation, location, picturePath }) => {
@@ -63,11 +59,7 @@ export const addRemoveFriend = asyncHandler(async (req, res) => {
   await user.save();
   await friend.save();
 
-  const friends = await Promise.all(
-    user.friends.map((id) => {
-      User.findById(id);
-    })
-  );
+  const friends = await User.find({ _id: { $in: user.friends } });
 
   const formattedFriends = friends.map(
     ({ _id, firstName, lastName, occupation, location, picturePath }) => {
