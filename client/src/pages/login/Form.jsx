@@ -30,8 +30,8 @@ const registerSchema = yup.object().shape({
 });
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email('invalid email').required('required'),
-  password: yup.string().required('required'),
+  email: yup.string().email('invalid email').required('email required'),
+  password: yup.string().required('password required'),
 });
 
 const initialValuesRegister = {
@@ -133,7 +133,6 @@ const Form = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
-                      autoComplete="given-name"
                       name="firstName"
                       fullWidth
                       label="First Name"
@@ -151,7 +150,6 @@ const Form = () => {
                       fullWidth
                       label="Last Name"
                       name="lastName"
-                      autoComplete="family-name"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.lastName}
@@ -237,7 +235,6 @@ const Form = () => {
               margin="normal"
               label="Email Address"
               name="email"
-              autoComplete="email"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
@@ -262,7 +259,7 @@ const Form = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {isLogin ? 'Login' : 'Resgister'}
+              {isLogin ? 'Login' : 'Register'}
             </Button>
             <Grid container>
               <Grid item xs>
