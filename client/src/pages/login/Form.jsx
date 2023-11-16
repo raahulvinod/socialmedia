@@ -17,6 +17,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { setLogin } from 'features/user/userSlice';
 
 import FlexBetween from 'components/FlexBetween';
+import { BASE_URL } from 'utils/Config';
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required('required'),
@@ -58,20 +59,16 @@ const Form = () => {
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
-
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
     }
     formData.append('picturePath', values.picture.name);
 
-    const savedUserResponse = await fetch(
-      'http://localhost:3001/api/auth/register',
-      {
-        method: 'POST',
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(`${BASE_URL}/auth/register`, {
+      method: 'POST',
+      body: formData,
+    });
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
 
@@ -81,14 +78,11 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch(
-      'http://localhost:3001/api/auth/login',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      }
-    );
+    const loggedInResponse = await fetch(`${BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {
@@ -103,7 +97,6 @@ const Form = () => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log('onSubmitProps' + onSubmitProps);
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
