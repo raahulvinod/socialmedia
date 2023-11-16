@@ -40,7 +40,7 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 // File storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cd(null, 'public/assests');
+    cb(null, 'public/assets');
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);

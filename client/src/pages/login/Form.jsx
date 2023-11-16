@@ -58,6 +58,7 @@ const Form = () => {
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
+
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -102,6 +103,7 @@ const Form = () => {
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
+    console.log('onSubmitProps' + onSubmitProps);
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -134,7 +136,7 @@ const Form = () => {
           </Typography>
           {isRegister && (
             <>
-              <Box component="form" noValidate sx={{ mt: 3 }}>
+              <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -236,7 +238,7 @@ const Form = () => {
             </>
           )}
 
-          <Box component="form" noValidate>
+          <Box>
             <TextField
               fullWidth
               margin="normal"
