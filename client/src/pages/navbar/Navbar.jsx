@@ -21,7 +21,7 @@ import {
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setMode, setLogout } from 'features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery('(min-width: 1000px)');
 
   const theme = useTheme();
@@ -39,6 +39,8 @@ const Navbar = () => {
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const alt = theme.palette.background.alt;
+
+  const fullName = `${user.firstName} ${user.lastName}`;
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -84,9 +86,9 @@ const Navbar = () => {
           <MarkChatUnreadIcon sx={{ fontSize: '25px' }} />
           <Notifications sx={{ fontSize: '25px' }} />
           <Help sx={{ fontSize: '25px' }} />
-          <FormControl variant="standard" value={'Rahul vinod'}>
+          <FormControl variant="standard" value={fullName}>
             <Select
-              value={'Rahul vinod'}
+              value={fullName}
               sx={{
                 backgroundColor: neutralLight,
                 width: '150px',
@@ -102,8 +104,8 @@ const Navbar = () => {
               }}
               input={<InputBase />}
             >
-              <MenuItem value={'Rahul vinod'}>
-                <Typography>{'Rahul vinod'}</Typography>
+              <MenuItem value={fullName}>
+                <Typography>{fullName}</Typography>
               </MenuItem>
               <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
             </Select>
@@ -159,9 +161,9 @@ const Navbar = () => {
             <MarkChatUnreadIcon sx={{ fontSize: '25px' }} />
             <Notifications sx={{ fontSize: '25px' }} />
             <Help sx={{ fontSize: '25px' }} />
-            <FormControl variant="standard" value={'Rahul vinod'}>
+            <FormControl variant="standard" value={fullName}>
               <Select
-                value={'Rahul vinod'}
+                value={fullName}
                 sx={{
                   backgroundColor: neutralLight,
                   width: '150px',
@@ -177,8 +179,8 @@ const Navbar = () => {
                 }}
                 input={<InputBase />}
               >
-                <MenuItem value={'Rahul vinod'}>
-                  <Typography>{'Rahul vinod'}</Typography>
+                <MenuItem value={fullName}>
+                  <Typography>{fullName}</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>
                   Log Out
