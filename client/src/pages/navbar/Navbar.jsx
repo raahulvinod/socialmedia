@@ -11,7 +11,6 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import {
-  Search,
   DarkMode,
   LightMode,
   Notifications,
@@ -22,7 +21,7 @@ import {
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setMode, setLogout } from 'features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,7 +31,7 @@ const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery('(min-width: 1000px)');
 
   const theme = useTheme();

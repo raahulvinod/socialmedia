@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 
